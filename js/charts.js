@@ -112,7 +112,12 @@ const config = {
                 grid: {
                     display: false,
                 }
-            }
+            },
+
+        },
+
+        hover: {
+            animationDuration:0
         },
         plugins: {
             legend: {
@@ -122,6 +127,9 @@ const config = {
                 enabled: true,
                 bodyAlign: 'center',
                 usePointStyle: true,
+                animation: {
+                  duration: 0
+                },
                 callbacks:{
                     label: (context) => {
                         let asset = context.raw.name
@@ -134,17 +142,94 @@ const config = {
                         return {
                             pointStyle: 'triangle',
                             backgroundColor: negativeColor,
-                            rotation: 180
-                        };
+                            labelColors : negativeColor,
+                            rotation: positiveRotate,
+                            textAlign: 'center'
+                        }
+                    },
+                    labelColor: function(context) {
+                        return {
+                            backgroundColor: positiveColor,
+                        }
                     }
                 }
             }
         },
         animation: {
-            duration: 0
+            duration: 1500
         }
     }
 };
 
 
 new Chart(ctx, config);
+
+
+
+/*tooltip: {
+    // Disable the on-canvas tooltip
+    enabled: false,
+
+        external: (context) => {
+        // Tooltip Element
+        let tooltipEl = document.getElementById('chartjs-tooltip');
+
+        // Create element on first render
+        if (!tooltipEl) {
+            tooltipEl = document.createElement('div');
+            tooltipEl.id = 'chartjs-tooltip';
+            tooltipEl.innerHTML = '<table></table>';
+            document.body.appendChild(tooltipEl);
+        }
+
+        // Hide if no tooltip
+        const tooltipModel = context.tooltip;
+        if (tooltipModel.opacity === 0) {
+            tooltipEl.style.opacity = '0';
+            return;
+        }
+
+        // Set caret Position (above, below,no-transform ).As I need above I don't delete that class
+        tooltipEl.classList.remove('below', 'no-transform');
+
+
+        // Set HTML & Data
+        if (tooltipModel.body) {
+            const dataFromCurrentElement = tooltipModel.dataPoints[0];
+            const currentElement = dataFromCurrentElement.dataIndex;
+            const formattedValue = dataFromCurrentElement.formattedValue.trim();
+            const currentDataToShow = formattedValue.substr(1, formattedValue.length - 2).split(' ');
+            const innerHtml = `
+                        <div style="border-collapse: separate; overflow: hidden; border-radius: 10px; box-shadow: 0 6px 12px rgba(0,0,0,.175);">
+
+                            <div style="background-color: #ECEFF1; padding-top: 5px; padding-bottom: 6px; padding-left: 7px; color: #000; font-family: 'Poppins'; font-size: 14px; border-bottom: solid 1px #DDD">
+                               Name
+                            </div>
+                            <div style="display: flex; padding: 1.2rem; background-color: white">
+                                <div style="display: flex; margin-right: 1.2rem;align-items: center;  ">
+                                    <div style="border-radius: 100%; background-color: #6785C1; height: 13px; width: 13px;"></div>
+                                </div>
+                                <div style="display: flex;  flex-direction: column;  font-family: 'Poppins'; font-size: 14px">
+                                    <div>Revenue: <span style="font-weight: 600">5224</span></div>
+                                    <div>Revenue per employee: <span style="font-weight: 600">5555}</span></div>
+                                    <div>Net income per employee: <span style="font-weight: 600">424224</span></div>
+                                </div>
+                            </div>
+                         </div>
+                    `;
+
+            tooltipEl.querySelector('table').innerHTML = innerHtml;
+        }
+
+        const position = context.chart.canvas.getBoundingClientRect();
+
+        // Display, position, and set styles for font
+        tooltipEl.style.opacity = '1';
+        tooltipEl.style.position = 'absolute';
+        tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+        tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+        tooltipEl.style.padding = tooltipModel.padding + 'px ' + tooltipModel.padding + 'px';
+        tooltipEl.style.pointerEvents = 'none';
+    }
+}
+},*/
