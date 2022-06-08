@@ -58,21 +58,26 @@ let walletValue =34567.34
 
 let walletDif = walletValue.toFixed(4)
 
+
 const centerText = {
     id: 'centerText',
     afterDatasetsDraw(chart, args, options){
         const {ctx, chartArea: {left,right,top,bottom,width,height}} = chart;
         ctx.save()
+        ctx.beginPath();
+        ctx.arc(125,125,110,0,2*Math.PI);
+        ctx.fillStyle = 'rgba(0,0,0,0.15)';
+        ctx.fill();
         ctx.font = 'bolder 25px Arial'
         ctx.fillStyle = 'rgb(0,0,0)'
         ctx.textAlign = 'center'
         ctx.fillText(walletValue + "$",width / 2,height / 2 + top + 8)
         ctx.restore()
-
         ctx.font = ' 15px Arial'
         ctx.fillStyle = negativeColor
         ctx.textAlign = 'center'
         ctx.fillText('-' + walletDif  + "$",width / 2,height / 2 + top + 35)
+        ctx.save();
         ctx.restore()
     }
 }
@@ -84,7 +89,7 @@ let data = {
         data: pieData,
         backgroundColor:dataColor,
         borderWidth: 0,
-        cutout: '80%'
+        cutout: '88%'
     }]
 };
 
@@ -141,8 +146,8 @@ const config = {
                     labelPointStyle: function(context) {
                         return {
                             pointStyle: 'triangle',
-                            backgroundColor: negativeColor,
-                            labelColors : negativeColor,
+     /*                       backgroundColor: negativeColor,
+                            labelColors : negativeColor,*/
                             rotation: positiveRotate,
                             textAlign: 'center'
                         }
