@@ -66,7 +66,7 @@ const centerText = {
         ctx.save()
         ctx.beginPath();
         ctx.arc(125,125,110,0,2*Math.PI);
-        ctx.fillStyle = 'rgba(0,0,0,0.15)';
+        ctx.fillStyle = 'rgba(0,0,0,0.10)';
         ctx.fill();
         ctx.font = 'bolder 25px Arial'
         ctx.fillStyle = 'rgb(0,0,0)'
@@ -146,8 +146,8 @@ const config = {
                     labelPointStyle: function(context) {
                         return {
                             pointStyle: 'triangle',
-     /*                       backgroundColor: negativeColor,
-                            labelColors : negativeColor,*/
+                            backgroundColor: negativeColor,
+                            labelColors : negativeColor,
                             rotation: positiveRotate,
                             textAlign: 'center'
                         }
@@ -168,6 +168,8 @@ const config = {
 
 
 new Chart(ctx, config);
+
+
 
 
 
