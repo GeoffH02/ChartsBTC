@@ -48,16 +48,18 @@ let dataColor = pieData.map(function(e) {
 
 const positiveColor = 'rgb(32,201,125)'
 const negativeColor = 'rgb(149,45,45)'
+const negativeDoug = 'rgb(255,0,0)'
 const negativeRotate = 180
 const positiveRotate = 0
+const positiveChev = '\uf077'
+const negativeChev = '\uf078'
 
 
-let ctx = document.getElementById("mainCurrencyChart").getContext("2d");
+    let ctx = document.getElementById("mainCurrencyChart").getContext("2d");
 
 let walletValue =34567.34
 
 let walletDif = walletValue.toFixed(4)
-
 
 const centerText = {
     id: 'centerText',
@@ -65,18 +67,30 @@ const centerText = {
         const {ctx, chartArea: {left,right,top,bottom,width,height}} = chart;
         ctx.save()
         ctx.beginPath();
-        ctx.arc(125,125,110,0,2*Math.PI);
-        ctx.fillStyle = 'rgba(0,0,0,0.10)';
+        ctx.font='14px FontAwesome';
+
+        //Background part
+        ctx.arc(125,125,111,0,2*Math.PI);
+        ctx.fillStyle = '#6001ff';
         ctx.fill();
-        ctx.font = 'bolder 25px Arial'
-        ctx.fillStyle = 'rgb(0,0,0)'
+
+        //Font part
+        ctx.font = '15px Arial'
+        ctx.fillStyle = 'white'
         ctx.textAlign = 'center'
-        ctx.fillText(walletValue + "$",width / 2,height / 2 + top + 8)
-        ctx.restore()
-        ctx.font = ' 15px Arial'
-        ctx.fillStyle = negativeColor
+        ctx.fillText("Estimated Value",width / 2,height / 2.7 + top + 8)
+
+        ctx.font = '25px Arial'
+        ctx.fillStyle = 'white'
         ctx.textAlign = 'center'
-        ctx.fillText('-' + walletDif  + "$",width / 2,height / 2 + top + 35)
+        ctx.fillText("$ " +walletValue ,width / 2,height / 2 + top + 8)
+
+        //Change
+        ctx.font = "15px Arial ,fontawesome"
+        ctx.fillStyle = positiveColor
+        ctx.textAlign = 'center'
+        ctx.fillText( positiveChev + " " + "$"  + walletDif ,width / 2,height / 2 + top + 35)
+
         ctx.save();
         ctx.restore()
     }
@@ -121,9 +135,9 @@ const config = {
 
         },
 
-        hover: {
+/*        hover: {
             animationDuration:0
-        },
+        },*/
         plugins: {
             legend: {
                 display: false,
@@ -168,6 +182,34 @@ const config = {
 
 
 new Chart(ctx, config);
+
+setInterval( () => {
+    walletValue = walletValue + Math.round(5000)
+
+    function makeid() {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < 8; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() *
+                charactersLength));
+        }
+        return result;
+    }
+
+    pieData.push(
+        {
+            value: Math.round(Math.random() * 500),
+            name: makeid(),
+            color: 'rgb(155, 99, 132)',
+            price: Math.round(Math.random() * 1000)
+        }
+    )
+
+
+    ctx.save();
+    console.table(ctx.data.datasets[0].data)
+},2500)
 
 
 

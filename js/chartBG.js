@@ -45,11 +45,15 @@ const entries = new Map(newArray);
 const obj = Object.fromEntries(entries);
 const ctxs = document.getElementById('bgChart').getContext('2d');
 
+
 let vert = "rgba(45, 149, 90,1)";
 
 
 var gradient = ctxs.createLinearGradient(0, 0, 0, 400);
 gradient.addColorStop(0, 'rgba(10,10,10,0.5)');
+gradient.addColorStop(0.5, 'rgba(255,255,255,0.05)');
+gradient.addColorStop(0.8, 'rgba(255,255,255,0.05)');
+gradient.addColorStop(0.9, 'rgba(255,255,255,0.05)');
 gradient.addColorStop(1, 'rgba(255,255,255,0.15)');
 
 var datas = {
