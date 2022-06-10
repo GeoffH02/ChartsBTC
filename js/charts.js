@@ -18,32 +18,36 @@ let pieData = [
         value: 25,
         name: 'BTC',
         color: 'rgb(255, 99, 132)',
-        price: 123.34
+        balance: 123.34
 
     },
     {
         value: 25,
         name: 'ETH',
         color: 'rgb(54, 162, 235)',
-        price: 13.34
+        balance: 13.34
     },
     {
         value: 25,
         name: 'VGO',
         color: 'rgb(255, 99, 232)',
-        price: 5469.34
+        balance: 5469.34
     },
     {
-        value : 25,
+        value : 50,
         name: 'BNB',
         color: 'rgb(123, 23, 0)',
-        price: 123456789.34
+        balance: 123456789.34
     }
 ];
 
 let dataColor = pieData.map(function(e) {
     return e.color;
 });
+
+let percent = pieData.map( e => {
+  console.log(e.value)
+})
 
 
 const positiveColor = 'rgb(32,201,125)'
@@ -53,9 +57,9 @@ const negativeRotate = 180
 const positiveRotate = 0
 const positiveChev = '\uf077'
 const negativeChev = '\uf078'
+chartDoug = ""
 
-
-    let ctx = document.getElementById("mainCurrencyChart").getContext("2d");
+let ctx = document.getElementById("mainCurrencyChart").getContext("2d");
 
 let walletValue =34567.34
 
@@ -149,13 +153,13 @@ const config = {
                 animation: {
                   duration: 0
                 },
+
                 callbacks:{
                     label: (context) => {
                         let asset = context.raw.name
                         let value = context.raw.value + " %"
-                        let price = context.raw.price + " €"
-                        let vals = [asset,value,price]
-                        return vals
+                        let balance = context.raw.balance + " €"
+                        return [asset, value, balance]
                     },
                     labelPointStyle: function(context) {
                         return {
@@ -175,14 +179,15 @@ const config = {
             }
         },
         animation: {
-            duration: 1500
+            animateRotate : true,
+            duration: 700
         }
     }
 };
 
+ chartDoug = new Chart(ctx, config);
 
-new Chart(ctx, config);
-
+/*
 setInterval( () => {
     walletValue = walletValue + Math.round(5000)
 
@@ -205,11 +210,12 @@ setInterval( () => {
             price: Math.round(Math.random() * 1000)
         }
     )
-
-
+    chartDoug.destroy()
+    chartDoug = new Chart(ctx, config)
     ctx.save();
     console.table(ctx.data.datasets[0].data)
 },2500)
+*/
 
 
 
