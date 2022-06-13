@@ -59,6 +59,7 @@ const positiveChev = '\uf077'
 const negativeChev = '\uf078'
 chartDoug = ""
 let anime = ""
+let radius = 85
 
 let ctx = document.getElementById("mainCurrencyChart").getContext("2d");
 
@@ -75,10 +76,10 @@ const centerText = {
         ctx.font = '14px FontAwesome';
 
         //Background part
-        var grd= ctx.createLinearGradient(0,100,125,100);
-        grd.addColorStop(1,'rgb(90,0,156)');
-        grd.addColorStop(1,'rgb(130,0,226)');
-        ctx.arc(125, 125, 105, 0, 2 * Math.PI);
+        var grd = ctx.createLinearGradient(0, 100, 125, 100);
+        grd.addColorStop(1, 'rgb(90,0,156)');
+        grd.addColorStop(1, 'rgb(130,0,226)');
+        ctx.arc(125, 125, radius, 0, 2 * Math.PI);
         ctx.fillStyle = grd;
         ctx.fill();
 
@@ -104,7 +105,7 @@ const centerText = {
     }
 }
 
-console.log(anime[0],anime)
+console.log(anime[0], anime)
 
 let data = {
     datasets: [{
@@ -191,7 +192,7 @@ const config = {
 
 chartDoug = new Chart(ctx, config);
 
-/*setInterval(() => {
+setInterval(() => {
     walletValue = walletValue + Math.round(5000)
 
     function makeid() {
@@ -217,7 +218,22 @@ chartDoug = new Chart(ctx, config);
     chartDoug = new Chart(ctx, config)
     ctx.save();
     console.table(ctx.data.datasets[0].data)
-}, 2500)*/
+}, 2500)
+
+let intervCirl = setInterval(circleAnimate, 10)
+
+function circleAnimate() {
+    if (radius > 105) {
+        radius = 105
+        clearInterval(intervCirl)
+    }
+
+    radius = radius + 1
+    chartDoug.destroy()
+    chartDoug = new Chart(ctx, config)
+    ctx.save();
+
+}
 
 
 /*tooltip: {
