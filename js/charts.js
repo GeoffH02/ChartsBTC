@@ -17,14 +17,14 @@ let pieData = [
     {
         value: 25,
         name: 'BTC',
-        color: 'rgb(255, 99, 132)',
+        color: 'rgb(242, 169, 0)',
         balance: 123.34
 
     },
     {
         value: 25,
         name: 'ETH',
-        color: 'rgb(54, 162, 235)',
+        color: 'rgb(33, 92, 175)',
         balance: 13.34
     },
     {
@@ -34,19 +34,19 @@ let pieData = [
         balance: 5469.34
     },
     {
-        value : 50,
+        value: 50,
         name: 'BNB',
         color: 'rgb(123, 23, 0)',
         balance: 123456789.34
     }
 ];
 
-let dataColor = pieData.map(function(e) {
+let dataColor = pieData.map(function (e) {
     return e.color;
 });
 
-let percent = pieData.map( e => {
-  console.log(e.value)
+let percent = pieData.map(e => {
+    console.log(e.value)
 })
 
 
@@ -58,56 +58,60 @@ const positiveRotate = 0
 const positiveChev = '\uf077'
 const negativeChev = '\uf078'
 chartDoug = ""
+let anime = ""
 
 let ctx = document.getElementById("mainCurrencyChart").getContext("2d");
 
-let walletValue =34567.34
+let walletValue = 34567.34
 
 let walletDif = walletValue.toFixed(4)
 
 const centerText = {
     id: 'centerText',
-    afterDatasetsDraw(chart, args, options){
-        const {ctx, chartArea: {left,right,top,bottom,width,height}} = chart;
+    afterDatasetsDraw(chart, args, options) {
+        const {ctx, chartArea: {left, right, top, bottom, width, height}} = chart;
         ctx.save()
         ctx.beginPath();
-        ctx.font='14px FontAwesome';
+        ctx.font = '14px FontAwesome';
 
         //Background part
-        ctx.arc(125,125,111,0,2*Math.PI);
-        ctx.fillStyle = '#6001ff';
+        var grd= ctx.createLinearGradient(0,100,125,100);
+        grd.addColorStop(1,'rgb(90,0,156)');
+        grd.addColorStop(1,'rgb(130,0,226)');
+        ctx.arc(125, 125, 105, 0, 2 * Math.PI);
+        ctx.fillStyle = grd;
         ctx.fill();
 
         //Font part
         ctx.font = '15px Arial'
         ctx.fillStyle = 'white'
         ctx.textAlign = 'center'
-        ctx.fillText("Estimated Value",width / 2,height / 2.7 + top + 8)
+        ctx.fillText("Estimated Value", width / 2, height / 2.7 + top + 8)
 
         ctx.font = '25px Arial'
         ctx.fillStyle = 'white'
         ctx.textAlign = 'center'
-        ctx.fillText("$ " +walletValue ,width / 2,height / 2 + top + 8)
+        ctx.fillText("$ " + walletValue, width / 2, height / 2 + top + 8)
 
         //Change
         ctx.font = "15px Arial ,fontawesome"
         ctx.fillStyle = positiveColor
         ctx.textAlign = 'center'
-        ctx.fillText( positiveChev + " " + "$"  + walletDif ,width / 2,height / 2 + top + 35)
+        ctx.fillText(positiveChev + " " + "$" + walletDif, width / 2, height / 2 + top + 35)
 
         ctx.save();
         ctx.restore()
     }
 }
 
-
+console.log(anime[0],anime)
 
 let data = {
     datasets: [{
         data: pieData,
-        backgroundColor:dataColor,
+        backgroundColor: dataColor,
         borderWidth: 0,
-        cutout: '88%'
+        cutout: '92%'
     }]
 };
 
@@ -139,9 +143,9 @@ const config = {
 
         },
 
-/*        hover: {
-            animationDuration:0
-        },*/
+        /*        hover: {
+                    animationDuration:0
+                },*/
         plugins: {
             legend: {
                 display: false,
@@ -151,26 +155,26 @@ const config = {
                 bodyAlign: 'center',
                 usePointStyle: true,
                 animation: {
-                  duration: 0
+                    duration: 0
                 },
 
-                callbacks:{
+                callbacks: {
                     label: (context) => {
                         let asset = context.raw.name
                         let value = context.raw.value + " %"
                         let balance = context.raw.balance + " €"
                         return [asset, value, balance]
                     },
-                    labelPointStyle: function(context) {
+                    labelPointStyle: function (context) {
                         return {
                             pointStyle: 'triangle',
                             backgroundColor: negativeColor,
-                            labelColors : negativeColor,
+                            labelColors: negativeColor,
                             rotation: positiveRotate,
                             textAlign: 'center'
                         }
                     },
-                    labelColor: function(context) {
+                    labelColor: function (context) {
                         return {
                             backgroundColor: positiveColor,
                         }
@@ -179,23 +183,22 @@ const config = {
             }
         },
         animation: {
-            animateRotate : true,
+            animateRotate: false,
             duration: 700
         }
     }
 };
 
- chartDoug = new Chart(ctx, config);
+chartDoug = new Chart(ctx, config);
 
-/*
-setInterval( () => {
+/*setInterval(() => {
     walletValue = walletValue + Math.round(5000)
 
     function makeid() {
-        var result           = '';
-        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         var charactersLength = characters.length;
-        for ( var i = 0; i < 8; i++ ) {
+        for (var i = 0; i < 8; i++) {
             result += characters.charAt(Math.floor(Math.random() *
                 charactersLength));
         }
@@ -214,11 +217,7 @@ setInterval( () => {
     chartDoug = new Chart(ctx, config)
     ctx.save();
     console.table(ctx.data.datasets[0].data)
-},2500)
-*/
-
-
-
+}, 2500)*/
 
 
 /*tooltip: {
